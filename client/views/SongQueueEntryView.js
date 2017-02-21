@@ -7,11 +7,13 @@ var SongQueueEntryView = Backbone.View.extend({
 
   initialize: function() {
     this.render();
+    this.model.on('enqueue', this.render, this);
   },
 
   render: function() {
     // var html = `<div>${ this.model.get('title') } - ${ this.model.get('artist')}</div>`;
     // return this.$el.html(html);
+    console.log('song queue render');
     return this.$el.html(this.template(this.model.attributes));
   }
 });
