@@ -13,13 +13,9 @@ var AppView = Backbone.View.extend({
       this.playerView.render();
     }, this);
 
-    // this.model.on('dequeue', function() {
-    //   this.playerView.render();
-    // }, this);
-
-    // this.model.on('change:songQueue', function(model) {
-    //   this.playerView.render();
-    // }, this);
+    this.model.on('change:library', function() {
+      this.libraryView.render();
+    }, this);
   },
 
   render: function() {
