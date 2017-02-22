@@ -13,7 +13,7 @@ var Songs = Backbone.Collection.extend({
       url: 'http://parse.sfm6.hackreactor.com/mytunes/classes/songs',
       method: 'GET',
       context: this,
-      async: false,
+      // async: false,
       contentType: 'application/json',
       success: function (data) {
         var context = this;
@@ -23,7 +23,13 @@ var Songs = Backbone.Collection.extend({
       },
       error: function (data) {
         console.error('mytunes: Failed to get songs', data);
+      },
+      complete: function() {
+        this.complete();
       }
     });
   },
+  complete: function() {
+    this.trigger('complete', this);
+  }
 });

@@ -12,6 +12,11 @@ describe('SongQueue', function() {
       artist: 'data',
       url: '/test/testsong2.mp3',
       title: 'test song 2'
+    };    
+    songData3 = {
+      artist: 'data',
+      url: '/test/testsong3.mp3',
+      title: 'test song 3'
     };
   });
 
@@ -20,7 +25,7 @@ describe('SongQueue', function() {
   });
 
   describe('when a song is added', function() {
-    xit('plays it if it is the only song in the song queue', function() {
+    it('plays it if it is the only song in the song queue', function() {
       var songQueue = new SongQueue();
       songQueue.add(songData1);
       expect(playSpy).to.have.been.called;
@@ -63,12 +68,22 @@ describe('SongQueue', function() {
       songQueue.at(0).dequeue();
       expect(removeSpy).to.have.been.called;
       SongQueue.prototype.remove.restore();
+    });    
+
+    it('moves the next song up the queue', function() {
+      var songQueue = new SongQueue([songData1, songData2, songData3]);
+      song3 = songQueue.at(2);
+      removeSpy = sinon.spy(SongQueue.prototype, 'remove');
+      songQueue.at(1).dequeue();
+      expect(removeSpy).to.have.been.called;
+      expect(songQueue.at(1)).to.equal(song3);
+      SongQueue.prototype.remove.restore();
     });
   });
 
   describe('playFirst', function() {
     it('plays the first song in the queue', function() {
-      sinon.spy(SongModel.prototype, 'play');
+      // sinon.spy(SongModel.prototype, 'play');
       var songQueue = new SongQueue(songData1);
       songQueue.playFirst();
       expect(songQueue.at(0).play).to.have.been.called;

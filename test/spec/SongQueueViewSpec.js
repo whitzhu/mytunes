@@ -33,6 +33,19 @@ describe('SongQueueView', function() {
     });
     view.collection.pop();
     expect(view.render).to.have.been.called;
+    SongQueueView.prototype.render.restore();
   });
+
+  // it('renders when end event fires from the song queue collection', function() {
+  //   sinon.spy(SongQueueView.prototype, 'render');
+  //   view = new SongQueueView({collection: fakeSongs});
+  //   view.collection.add({
+  //     artist: 'data',
+  //     url: '/test/testsong3.mp3',
+  //     title: 'test song 3'
+  //   });
+  //   view.collection.at(0).trigger('ended');
+  //   expect(view.render).to.have.been.called;
+  // });
 
 });
